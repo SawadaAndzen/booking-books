@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Library(models.Model):
-    id = models.PositiveIntegerField(auto_created = True, unique = True)
+    id = models.PositiveIntegerField(auto_created = True, unique = True, primary_key = True)
     name = models.CharField(max_length = 50)
     desciption = models.TextField()
     adress = models.CharField(max_length = 150)
@@ -19,27 +19,17 @@ class Author(models.Model):
     
     def __str__(self):
         return f'{self.name} {self.surname}'
-    
-    
-'''   
-class User(User):
-    name = models.CharField(max_length = 50)
-    surname = models.CharField(max_length = 50)
-    password = models.CharField(max_length = 50)
-    email = models.EmailField()
-    phone = models.CharField(max_length = 100)
-'''
 
 
 class Book(models.Model):
-    id = models.PositiveIntegerField(auto_created = True, unique = True)
+    id = models.PositiveIntegerField(auto_created = True, unique = True, primary_key = True)
     title = models.CharField(max_length = 100)
     author = models.ForeignKey(Author, on_delete = models.DO_NOTHING)
     description = models.TextField()
     genre = models.CharField(max_length = 50)
     pages = models.IntegerField()
     library = models.ForeignKey(Library, on_delete = models.DO_NOTHING)
-    price = models.DecimalField(max_digits = 2)
+    price = models.DecimalField(max_digits = 15, decimal_places = 2)
     quantity = models.IntegerField()
     
     def __str__(self):
@@ -51,7 +41,8 @@ class Booking(models.Model):
       id_user = models.ForeignKey(User, on_delete = models.DO_NOTHING)
       date = models.DateTimeField()
       expires = models.DateTimeField()
-      status = models.CharField(max_length=10, choices=[("Cancelled","Cancelled"), ("Expired", "Expired"), ("Active", "Active")])
+      status = models.CharField(max_length = 10, choices = [("Cancelled", "Cancelled"),
+        ("Expired", "Expired"), ("Active", "Active"), ("Completed", "Completed")])
       
       def __str__(self):
           return f'{self.date} - {self.expires} ({self.status})'
