@@ -1,12 +1,42 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block title %}
     <title>Main</title>
+    <style>
+        html, body {
+            height: 100%; /* Make sure both html and body are 100% height */
+        }
+
+        body {
+            background-image: url("{% static 'images/bg.png' %}");
+            background-size: cover; /* Ensures the background covers the entire page */
+            background-position: center; /* Center the background */
+            background-repeat: no-repeat; /* Prevents tiling */
+            background-attachment: fixed; /* Keeps the image fixed while scrolling */
+        }
+
+        .content {
+            height: 100%; /* Ensure the content takes the full height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        h1 {
+            color: white; /* Ensure text is visible on the background */
+        }
+    </style>
 {% endblock  %}
 
 {% block content %}
-<h1>HOME PAGE</h1>
-<a href="/books/">Books</a><br>
-<a href="/add-book/">Add New Book</a>
+<div class="container-fluid h-100 d-flex align-items-start">
+    <div class="row">
+        <div class="col">
+            <h1 class="text-white">HOME PAGE</h1>
+            <a href="/books/" class="btn btn-primary">Books</a><br>
+            <a href="/add-book/" class="btn btn-secondary">Add New Book</a>
+        </div>
+    </div>
+</div>
 {% endblock  %}
