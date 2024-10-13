@@ -1,17 +1,24 @@
 {% extends "base.html" %}
 
-
 {% block title %}
-<title>Books</title>
+    <title>Books</title>
 {% endblock title %}
 
 {% block content %}
-<h1>Books</h1>
-
-{% for book in books %}
-    <li>
-        <p>{{ book.title }} by {{ book.author}} (${{ book.price }})</p>
-    </li>
-{% endfor %}
-
+<div class="container mt-5">
+    <h1>Books</h1>
+    <div class="row">
+        {% for book in books %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ book.title }}</h5>
+                        <p class="card-text">by {{ book.author }}</p>
+                        <p class="card-text">${{ book.price }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock content %}
