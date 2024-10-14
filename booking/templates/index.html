@@ -34,8 +34,15 @@
     <div class="row">
         <div class="col">
             <h1 class="text-white">HOME PAGE</h1>
-            <a href="/books/" class="btn btn-primary">Books</a><br>
-            <a href="/add-book/" class="btn btn-secondary">Add New Book</a>
+            <a href="/books/" class="btn btn-primary mb-2">Books</a><br>
+            {% if user.is_authenticated %}
+                {% if user.is_superuser %}
+                    <a href="/" class="btn btn-secondary">Make Booking</a>
+                    <a href="/add-book/" class="btn btn-outline-warning end-0">Add New Book</a>
+                {% else %}
+                    <a href="/" class="btn btn-secondary">Make Booking</a>
+                {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>
