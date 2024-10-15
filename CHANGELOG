@@ -1,0 +1,17 @@
+###############################################
+14/10/24 - FRONTEND FIX -
+###############################################
+- CREATED CHANGELOG FILE
+
+- TEMPLATES CHANGES:
+    - footer polished
+    - navbar authenticate system
+        - checking if logged or not
+    - special features for admin (if logged as superuser)
+
+ - APP CHANGES:
+    - views changes:
+        - changed redirect in signup func
+
+     - .GITIGNORE:
+        - ignored __pycache__ in directories - migrations
