@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>LibReserve ⫸ Delete Booking</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container col-xl-10 col-xxl-8 px-4 py-5">
+    <h1>Delete Booking</h1>
+    <p>Are you sure you want to delete the booking for {{ booking.date }}?</p>
+    <form method="post">
+        {% csrf_token %}
+        <button class = 'btn btn-danger' type="submit">Yes, delete</button>
+    </form>
+        <a href="/profile/" class = 'btn btn-outline-primary mt-1'>Cancel</a>
+</div>
+{% endblock content %}

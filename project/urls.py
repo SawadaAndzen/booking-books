@@ -18,11 +18,12 @@ from django.contrib import admin
 from django.views.generic import TemplateView
 from django.contrib.auth import views as authv
 from django.urls import path, include
+from booking.forms import CustomLoginForm
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('booking.urls')),
     path("logout/", authv.LogoutView.as_view(), name = 'logout'),
-    path("login/", authv.LoginView.as_view(template_name = 'auth/login.html'), name = 'login'),
+    path('login/', authv.LoginView.as_view(template_name='auth/login.html', authentication_form=CustomLoginForm), name='login'),
     path('signup/', TemplateView.as_view(template_name = 'auth/signup.html'), name = 'signup'),
 ]

@@ -1,11 +1,23 @@
-from django.shortcuts import render, redirect
-from django.contrib.auth.forms import UserCreationForm
-from .models import Book
-from .forms import BookForm
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib.auth.decorators import login_required
+from datetime import timedelta
+from .models import Book, Booking
+from .forms import BookForm, BookingForm, CustomSignUpForm
 
 
 def index(request):
     return render(request, 'index.html')
+
+
+def about(request):
+    return render(request, 'about.html')
+
+
+@login_required
+def read_profile(request):
+    bookings = Booking.objects.all()
+    
+    return render(request, 'profile.html', {'bookings': bookings})
 
 
 def read_books_list(request):
@@ -16,7 +28,7 @@ def read_books_list(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = CustomSignUpForm(request.POST)
         
         if form.is_valid():
             form.save()
@@ -24,7 +36,7 @@ def signup(request):
             return redirect('login')
     
     else:
-        form = UserCreationForm()
+        form = CustomSignUpForm()
     
     return render(request, 'auth/signup.html', {'form': form})
 
@@ -42,3 +54,32 @@ def add_book(request):
         form = BookForm()
 
     return render(request, 'add_book.html', {'form': form})
+
+
+@login_required
+def create_booking(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        
+        if form.is_valid():
+            booking = form.save(commit=True)
+            booking.expires = booking.date + timedelta(days=3)
+            
+            return redirect('profile')
+        
+    else:
+        form = BookingForm()
+        
+    return render(request, 'create_booking.html', {'form': form})
+
+
+@login_required
+def delete_booking(request, booking_id):
+    booking = get_object_or_404(Booking, id=booking_id)
+    
+    if request.method == 'POST':
+        booking.delete()
+
+        return redirect('profile')
+
+    return render(request, 'confirm_delete.html', {'booking': booking})
