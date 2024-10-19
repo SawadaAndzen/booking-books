@@ -1,0 +1,28 @@
+###############################################
+19/10/24 - BETA TEST REALEASE -
+###############################################
+- TEMPLATES CHANGES:
+    - new templates: about, profile, create - delete booking
+    - changed / modified: every template
+- APP CHANGES:
+    - views changes:
+        - new functions
+- OTHER
+
+###############################################
+14/10/24 - FRONTEND FIX -
+###############################################
+- CREATED CHANGELOG FILE
+
+- TEMPLATES CHANGES:
+    - footer polished
+    - navbar authenticate system
+        - checking if logged or not
+    - special features for admin (if logged as superuser)
+
+ - APP CHANGES:
+    - views changes:
+        - changed redirect in signup func
+
+     - .GITIGNORE:
+        - ignored __pycache__ in directories - migrations

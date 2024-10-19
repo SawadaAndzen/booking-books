@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>LibReserve ⫸ {{ user.first_name }} {{ user.last_name }}'s Profile</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container mt-5 text-center mb-5">
+    <h1>Info</h1>
+        <p>Name: {{ user.first_name }}</p>
+        <p>Surname: {{ user.last_name }}</p>
+        <p>Date Joined: {{ user.date_joined }}</p>
+    <h1>My Bookings</h1>
+    <div class="row">
+        {% for booking in bookings %}
+            <div class="col-md-4">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ booking.book }}</h5>
+                        <p class="card-text">${{ booking.book.price }}</p>
+                        <p class="card-text">by {{ booking.date }}</p>
+                        <a href="{% url 'delete_booking' booking.id %}" class = 'btn btn-danger'>Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock content %}
