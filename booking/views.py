@@ -15,7 +15,7 @@ def about(request):
 
 @login_required
 def read_profile(request):
-    bookings = Booking.objects.all()
+    bookings = Booking.objects.all().filter(user = request.user)
     
     return render(request, 'profile.html', {'bookings': bookings})
 
@@ -62,8 +62,10 @@ def create_booking(request):
         form = BookingForm(request.POST)
         
         if form.is_valid():
-            booking = form.save(commit=True)
+            booking = form.save(commit=False)
+            booking.user = request.user
             booking.expires = booking.date + timedelta(days=3)
+            booking.save()
             
             return redirect('profile')
         

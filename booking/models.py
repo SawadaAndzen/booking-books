@@ -41,7 +41,7 @@ class Book(models.Model):
 class Booking(models.Model):
     book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    date = models.DateTimeField()
+    date = models.DateTimeField(unique = True)
     expires = models.DateTimeField()
     status = models.CharField(max_length=10, choices=[
         ("Cancelled", "Cancelled"),
@@ -51,15 +51,12 @@ class Booking(models.Model):
     ])
     
     def save(self, *args, **kwargs):
-        # If the booking is new and no status is set, set it to "Active"
         if not self.pk and not self.status:
             self.status = "Active"
-        
-        # Check if the current time is past the expiration date
         if self.expires and timezone.now() > self.expires:
             self.status = "Expired"
-        
+            
         super(Booking, self).save(*args, **kwargs)
     
     def __str__(self):
-        return f'{self.date} - {self.expires} ({self.status})'
+        return f'{self.user.first_name} - {self.book.title} ({self.status})'

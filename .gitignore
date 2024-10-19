@@ -2,4 +2,4 @@ venv/
 booking/__pycache__/
 project/__pycache__/
 booking/migrations/__pycache__
-#user-list.asc
+user-list.asc
