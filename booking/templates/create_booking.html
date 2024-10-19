@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}
+    <title>LibReserve ⫸ Create Booking</title>
+{% endblock title %}
+
+{% block content %}
+<div class="container col-xl-10 col-xxl-8 px-4 py-5 text-center">
+    <h1>Create Booking</h1>
+    <form method = 'POST' class="p-5 p-md-5 border rounded-3 bg-body-tertiary">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class="w-100 btn btn-lg btn-primary" type = 'submit'>Create</button>
+    </form>
+</div>
+{% endblock content %}

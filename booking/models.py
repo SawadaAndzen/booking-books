@@ -1,4 +1,6 @@
 from django.db import models
+from datetime import timedelta
+from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -37,12 +39,24 @@ class Book(models.Model):
     
     
 class Booking(models.Model):
-      id_book = models.ForeignKey(Book, on_delete = models.DO_NOTHING)
-      id_user = models.ForeignKey(User, on_delete = models.DO_NOTHING)
-      date = models.DateTimeField()
-      expires = models.DateTimeField()
-      status = models.CharField(max_length = 10, choices = [("Cancelled", "Cancelled"),
-        ("Expired", "Expired"), ("Active", "Active"), ("Completed", "Completed")])
-      
-      def __str__(self):
-          return f'{self.date} - {self.expires} ({self.status})'
+    book = models.ForeignKey(Book, on_delete=models.DO_NOTHING)
+    user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
+    date = models.DateTimeField(unique = True)
+    expires = models.DateTimeField()
+    status = models.CharField(max_length=10, choices=[
+        ("Cancelled", "Cancelled"),
+        ("Expired", "Expired"),
+        ("Active", "Active"),
+        ("Completed", "Completed")
+    ])
+    
+    def save(self, *args, **kwargs):
+        if not self.pk and not self.status:
+            self.status = "Active"
+        if self.expires and timezone.now() > self.expires:
+            self.status = "Expired"
+            
+        super(Booking, self).save(*args, **kwargs)
+    
+    def __str__(self):
+        return f'{self.user.first_name} - {self.book.title} ({self.status})'
