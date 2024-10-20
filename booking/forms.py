@@ -15,12 +15,12 @@ class BookForm(forms.ModelForm):
 class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
-        fields = ['book', 'date']
+        fields = ['date', 'quantity']
         widgets = {'date': forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'})}
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['book'].widget.attrs.update({'class': 'form-control'})
+        self.fields['quantity'].widget.attrs.update({'class': 'form-control'})
         
         
 class CustomSignUpForm(UserCreationForm):

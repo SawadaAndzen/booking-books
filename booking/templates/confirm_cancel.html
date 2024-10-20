@@ -1,16 +1,16 @@
 {% extends "base.html" %}
 
 {% block title %}
-    <title>LibReserve ⫸ Delete Booking</title>
+    <title>LibReserve ⫸ Cancel Booking</title>
 {% endblock title %}
 
 {% block content %}
 <div class="container col-xl-10 col-xxl-8 px-4 py-5">
-    <h1>Delete Booking</h1>
-    <p>Are you sure you want to delete the booking for {{ booking.date }}?</p>
+    <h1>Cancel Booking</h1>
+    <p>Are you sure you want to cancel the booking for {{ booking.date }}?</p>
     <form method="post">
         {% csrf_token %}
-        <button class = 'btn btn-danger' type="submit"><i class="bi bi-trash"></i> Yes, delete</button>
+        <button class = 'btn btn-warning' type="submit"><i class="bi bi-trash"></i> Yes, cancel</button>
     </form>
         <a href="/profile/" class = 'btn btn-outline-primary mt-1'><i class="bi bi-x-circle"></i> Cancel</a>
 </div>

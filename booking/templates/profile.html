@@ -6,20 +6,36 @@
 
 {% block content %}
 <div class="container mt-5 text-center mb-5">
-    <h1>Info</h1>
-        <p>Name: {{ user.first_name }}</p>
-        <p>Surname: {{ user.last_name }}</p>
-        <p>Date Joined: {{ user.date_joined }}</p>
-    <h1>My Bookings</h1>
+    <h1><i class="bi bi-person"></i> Info <i class="bi bi-person"></i></h1>
+        <p><i class="bi bi-1-square-fill"></i> Name: <b>{{ user.first_name }}</b></p>
+        <p><i class="bi bi-2-square-fill"></i> Surname: <b>{{ user.last_name }}</b></p>
+        <p><i class="bi bi-calendar-date-fill"></i> Date Joined: {{ user.date_joined }}</p>
+    <h1>My Bookings <i class="bi bi-bookmark"></i></h1>
     <div class="row">
         {% for booking in bookings %}
             <div class="col-md-4">
                 <div class="card mb-4">
+                    {% if  booking.status == "Active" %}
+                        <button class = 'btn btn-success disabled border rounded-2 w-100'>Active</button>
+                    {% elif booking.status == "Expired" %}
+                        <button class = 'btn btn-danger disabled border rounded-2 w-100'>Expired</button>
+                    {% elif booking.status == "Cancelled" %}
+                        <button class = 'btn btn-warning disabled border rounded-2 w-100'>Cancelled</button>
+                    {% elif booking.status == "Completed" %}
+                        <button class = 'btn btn-primary disabled border rounded-2 w-100'>Completed</button>
+                    {% endif %}
+
                     <div class="card-body">
                         <h5 class="card-title">{{ booking.book }}</h5>
+                        <p class="card-text fw-lighter text-secondary">{{ booking.book.library }}</p>
                         <p class="card-text">${{ booking.book.price }}</p>
-                        <p class="card-text">by {{ booking.date }}</p>
-                        <a href="{% url 'delete_booking' booking.id %}" class = 'btn btn-danger'>Delete</a>
+                        <p class="card-text">Expires in {{ booking.expires }}</p>
+
+                        {% if booking.status == "Cancelled" or booking.status == "Expired" or booking.status == "Completed"%}
+                            <a href="{% url 'delete_booking' booking.id %}" class = 'btn btn-danger'><i class="bi bi-trash"></i> Delete</a>
+                        {% elif booking.status == "Active" %}
+                            <a href="{% url 'cancel_booking' booking.id %}" class = 'btn btn-warning'><i class="bi bi-x-circle"></i> Cancel</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

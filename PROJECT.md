@@ -1,2 +1,2 @@
 #   NAME :  "LibReserve"
-#   VERSION :   v19-10-24
+#   VERSION :   BETA v20-10-24

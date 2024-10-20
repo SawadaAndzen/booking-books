@@ -8,30 +8,30 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Home</a>
+          <a class="nav-link" aria-current="page" href="/"><i class="bi bi-house"></i> Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/books/">Books</a>
+          <a class="nav-link" href="/books/"><i class="bi bi-book me-2"></i> Books</a>
         </li>
       </ul>
       {% if user.is_authenticated %}
         <div class="nav-item dropdown align-items-center ms-auto d-flex">
-          <a class="nav-link dropdown-toggle me-2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            {{ user.first_name }} {{ user.last_name }}
+          <a class="nav-link dropdown-toggle me-2 text-secondary" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-person"></i> {{ user.first_name }} {{ user.last_name }}
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/profile/">Profile</a></li>
+            <li><a class="dropdown-item" href="/profile/"><i class="bi bi-journal-text"></i> Profile</a></li>
             {% if user.is_superuser %}
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="/admin/">Admin Panel</a></li>
+              <li><a class="dropdown-item" href="/admin/"><i class="bi bi-journal-code"></i> Admin Panel</a></li>
             {% endif %}
           </ul>
-          <a class="btn btn-outline-primary ms-2" href="/logout/">Logout</a>
+          <a class="btn btn-outline-primary ms-2" href="/logout/"><i class="bi bi-box-arrow-left"></i> Logout</a>
         </div>
       {% else %}
         <div class = 'nav-item align-middle ms-auto end-0'>
-          <a class = 'btn btn-primary' href="/login/">Login</a>
-          <a class = 'btn btn-outline-primary' href="/signup/">Sign Up</a>
+          <a class = 'btn btn-primary' href="/login/"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+          <a class = 'btn btn-outline-primary' href="/signup/"><i class="bi bi-box-arrow-in-right"></i> Sign Up</a>
         </div>
       {% endif %}
     </div>

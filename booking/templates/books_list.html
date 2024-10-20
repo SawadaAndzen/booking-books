@@ -13,13 +13,14 @@
                 <div class="card mb-4">
                     <div class="card-body">
                         <h5 class="card-title">{{ book.title }}</h5>
-                        <p class="card-text">by {{ book.author }}</p>
+                        <p class="card-text text-secondary">{{ book.author }}</p>
                         <p class="card-text">${{ book.price }}</p>
                         {% if user.is_authenticated %}
-                            <a href="/create-booking/" class="btn btn-primary">New Booking</a>
+                            <a href="{% url 'create_booking' book.id %}" class="btn btn-primary"><i class="bi bi-basket"></i> New Booking</a>
+                            <text class="card-text text-end ms-5 text-secondary">Quantity: {{ book.quantity }}</text>
                         {% else %}
-                            <button id="newBookingButton" class="btn btn-primary" data-toggle="modal" data-target="#loginModal">
-                                New Booking
+                            <button id="newBookingButton" class="btn btn-primary text-secondary" data-toggle="modal" data-target="#loginModal">
+                                <i class="bi bi-basket"></i> New Booking
                             </button>
                         {% endif %}
                     </div>
@@ -30,15 +31,15 @@
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="loginModalLabel">Login Required</h5>
+                <div class="modal-header text-center">
+                    <h5 class="modal-title w-100" id="loginModalLabel"><i class="bi bi-exclamation-diamond-fill"></i> Login Required <i class="bi bi-exclamation-diamond-fill"></i></h5>
                 </div>
                 <div class="modal-body">
                     To book this item, you need to log in. Please log in to continue.
                 </div>
-                <div class="modal-footer">
-                    <a href="{% url 'login' %}" class="btn btn-primary">Log In</a>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <div class="modal-footer justify-content-center">
+                    <a href="{% url 'login' %}" class="btn btn-primary"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal"><i class="bi bi-x-circle"></i> Cancel</button>
                 </div>
             </div>
         </div>
