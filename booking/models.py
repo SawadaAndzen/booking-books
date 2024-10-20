@@ -1,6 +1,4 @@
 from django.db import models
-from datetime import timedelta
-from django.utils import timezone
 from django.contrib.auth.models import User
 
 
@@ -9,10 +7,11 @@ class Library(models.Model):
     name = models.CharField(max_length = 50)
     desciption = models.TextField()
     adress = models.CharField(max_length = 150)
-    work_time = models.TimeField()
+    start_work_time = models.TimeField()
+    end_work_time = models.TimeField()
     
     def __str__(self):
-        return f"{self.name} - ({self.work_time})"
+        return f"{self.name} - ({self.start_work_time} - {self.end_work_time})"
     
     
 class Author(models.Model):
@@ -32,7 +31,7 @@ class Book(models.Model):
     pages = models.IntegerField()
     library = models.ForeignKey(Library, on_delete = models.DO_NOTHING)
     price = models.DecimalField(max_digits = 15, decimal_places = 2)
-    quantity = models.IntegerField()
+    quantity = models.PositiveIntegerField(default = 0)
     
     def __str__(self):
         return f"{self.title} by {self.author}"
@@ -43,6 +42,7 @@ class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING)
     date = models.DateTimeField(unique = True)
     expires = models.DateTimeField()
+    quantity = models.PositiveIntegerField(default = 1)
     status = models.CharField(max_length=10, choices=[
         ("Cancelled", "Cancelled"),
         ("Expired", "Expired"),
@@ -50,13 +50,5 @@ class Booking(models.Model):
         ("Completed", "Completed")
     ])
     
-    def save(self, *args, **kwargs):
-        if not self.pk and not self.status:
-            self.status = "Active"
-        if self.expires and timezone.now() > self.expires:
-            self.status = "Expired"
-            
-        super(Booking, self).save(*args, **kwargs)
-    
     def __str__(self):
-        return f'{self.user.first_name} - {self.book.title} ({self.status})'
+        return f'{self.user.first_name} - {self.book.title} (Quantity: {self.quantity}) ({self.status})'

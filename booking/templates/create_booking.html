@@ -8,9 +8,18 @@
 <div class="container col-xl-10 col-xxl-8 px-4 py-5 text-center">
     <h1>Create Booking</h1>
     <form method = 'POST' class="p-5 p-md-5 border rounded-3 bg-body-tertiary">
+        <p>Book:</p>
+        <input class = "form-control" placeholder = "{{book.title}} by {{book.author}}" disabled></input>
+        <p>Library:</p>
+        <input class = "form-control" placeholder = "{{book.library}}" disabled></input>
+        <p>Book:</p>
+        <input class = "form-control" placeholder = "{{book.title}} by {{book.author}}" disabled></input>
+        <p>User:</p>
+        <input class = "form-control" placeholder = "{{user.first_name}} {{user.last_name}}" disabled></input>
         {% csrf_token %}
         {{ form.as_p }}
-        <button class="w-100 btn btn-lg btn-primary" type = 'submit'>Create</button>
+        <small class="text-body-secondary">Warning: Your booking will expire after 3 days of your date.</small>
+        <button class="w-100 btn btn-lg btn-primary mt-2" type = 'submit'>Create</button>
     </form>
 </div>
 {% endblock content %}
